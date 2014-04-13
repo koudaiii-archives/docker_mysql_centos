@@ -80,9 +80,12 @@ ADD run /usr/local/bin/run
 ADD setup_mysql.sh /root/setup_mysql.sh
 RUN chmod +x /usr/local/bin/run; chmod +x /root/setup_mysql.sh
 
-#CMD ["/usr/local/bin/run"]
+RUN touch /etc/sysconfig/network #This file is needed in /etc/init.d/mysqld
 
-#RUN /bin/sh /root/setup_mysql.sh
+
+CMD ["/usr/local/bin/run"]
+RUN /bin/sh /root/setup_mysql.sh
+
 
 # expose for mysqld
 EXPOSE 3306
@@ -97,4 +100,5 @@ ADD ./supervisord.conf /etc/supervisord.conf
 
 
 CMD ["/usr/bin/supervisord"]
+
 
